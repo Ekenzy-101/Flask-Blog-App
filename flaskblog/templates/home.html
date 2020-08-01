@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
+    <a class="navbar-brand ml-lg-4" href="#">Kenzy</a>
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="collapsibleNavId">
+        <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="#">ABOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CONTACT</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    <a class="dropdown-item" href="#">Login</a>
+                    <a class="dropdown-item" href="#">Register</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="background">
+    BLOG
+</main>
+
+<section class="blog-posts row">
+    <div class="col-xs-12 col-lg-6">
+        <div class="blog-post">
+            <img src="{{ url_for('static', filename='power-station.jpg') }}" alt="blog-image" class="blog-img">
+            <div class="blog-info">
+                <p class="blog-category text-muted">JOURNAL</p>
+                <h3 class="blog-title">Hexagon selvage trust fund</h3>
+                <p class="blog-text text-muted mx-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis
+                    debitis sint
+                    deserunt quis nulla est, nihil alias, atque porro perferendis reiciendis ut..</p>
+                <button class="btn read-more">READ MORE</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-lg-6">
+        <div class="blog-post">
+            <img src="{{ url_for('static', filename='power-station.jpg') }}" alt="blog-image" class="blog-img">
+            <div class="blog-info">
+                <p class="blog-category text-muted">JOURNAL</p>
+                <h3 class="blog-title">Hexagon selvage trust fund</h3>
+                <p class="blog-text text-muted mx-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis
+                    debitis sint
+                    deserunt quis nulla est, nihil alias, atque porro perferendis reiciendis ut eum nam quos ad ea.
+                    Maiores,
+                    totam error...</p>
+                <button class="btn read-more">READ MORE</button>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

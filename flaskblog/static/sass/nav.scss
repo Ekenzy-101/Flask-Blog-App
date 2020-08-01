@@ -1,0 +1,14 @@
+.nav-link{
+    color: #ce24ce !important;
+}
+
+.active > .nav-link {
+    font-weight: bold;
+}
+
+.navbar-toggler{
+    border: none;
+    &:focus {
+        outline: 3px auto #ce24ce !important;
+    }
+}
