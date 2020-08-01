@@ -1,0 +1,49 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    background: lightgray;
+}
+
+.register-section {
+    width: 40%;
+    margin: auto;
+    margin-top: 20vh;
+    padding: 2rem;
+    border: 2px solid #ce24ce;
+    border-radius: 0.6rem;
+    legend {
+        font-weight: bold;
+        color: #ce24ce;
+        text-align: center;
+    }
+    .form-group {
+        width: 85%;
+        margin: 1rem auto;
+        input {
+            border: 1px solid #ce24ce; 
+        }
+        .register-btn {
+            background: #ce24ce;
+            color: white;
+            border-radius: 0.3rem;
+            display: block;
+            width: 100%;
+        }
+        p {
+            a {
+                color: #ce24ce;
+                &:hover {
+                    color: #ce24ce;
+                }
+            }
+        }
+
+    }
+}
+
+@media (max-width: 768px) {
+    .register-section {
+        width: 100%;
+        border: none; 
+    }
+} 

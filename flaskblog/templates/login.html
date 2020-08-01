@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<div class="register-section">
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <legend class="mb-4">Welcome Back</legend>
+        <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+            {% if form.email.errors %}
+            {{ form.email(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.email(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.password.label(class="form-control-label") }}
+            {% if form.password.errors %}
+            {{ form.password(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.password(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group pl-3">
+            {{ form.remember(class="form-check-input") }}
+            {{ form.remember.label(class="form-check-label") }}
+        </div>
+        <div class="form-group mt-4">
+            {{ form.submit(class="btn register-btn")}}
+        </div>
+        <div class="form-group">
+            <p class="text-center">
+                Don't Have An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up</a>
+            </p>
+        </div>
+        <div class="form-group">
+            <p class="text-center">
+                Forgot Password? <a class="ml-2" href="#">Reset</a>
+            </p>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

@@ -12,3 +12,14 @@
         outline: 3px auto #ce24ce !important;
     }
 }
+
+.alert {
+    margin-top: 6rem !important;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    .alert {
+        width: 100%;
+    }
+}

@@ -4,7 +4,7 @@
 {% endblock header %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
-    <a class="navbar-brand ml-lg-4" href="#">Kenzy</a>
+    <a class="navbar-brand ml-lg-4" href="{{ url_for('home') }}">Kenzy</a>
     <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavId"
         aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,10 +12,10 @@
     <div class="collapse navbar-collapse  " id="collapsibleNavId">
         <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
             <li class="nav-item active">
-                <a class="nav-link" href="#">HOME <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ url_for('home') }}">HOME <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item ">
-                <a class="nav-link" href="#">ABOUT</a>
+                <a class="nav-link" href="{{ url_for('about') }}">ABOUT</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">CONTACT</a>
@@ -26,8 +26,8 @@
                     <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
-                    <a class="dropdown-item" href="#">Login</a>
-                    <a class="dropdown-item" href="#">Register</a>
+                    <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
+                    <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
                 </div>
             </li>
         </ul>
@@ -47,7 +47,7 @@
                 <h3 class="blog-title">Hexagon selvage trust fund</h3>
                 <p class="blog-text text-muted mx-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis
                     debitis sint
-                    deserunt quis nulla est, nihil alias, atque porro perferendis reiciendis ut..</p>
+                    deserunt quis nulla est, nihil aliat..</p>
                 <button class="btn read-more">READ MORE</button>
             </div>
         </div>
@@ -60,8 +60,6 @@
                 <h3 class="blog-title">Hexagon selvage trust fund</h3>
                 <p class="blog-text text-muted mx-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis
                     debitis sint
-                    deserunt quis nulla est, nihil alias, atque porro perferendis reiciendis ut eum nam quos ad ea.
-                    Maiores,
                     totam error...</p>
                 <button class="btn read-more">READ MORE</button>
             </div>
