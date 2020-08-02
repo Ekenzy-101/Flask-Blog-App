@@ -1,0 +1,7 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<div>{{ current_user.username }}</div>
+{% endblock content %}

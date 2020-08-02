@@ -26,8 +26,13 @@
                     <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                    {% else %}
                     <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
                     <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
                 </div>
             </li>
         </ul>
