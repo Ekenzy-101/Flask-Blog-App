@@ -6,6 +6,23 @@
     font-weight: bold;
 }
 
+.dropdown-menu {
+    .active {
+        font-weight: bold;
+    }
+}
+
+.avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+}
+
+.dropdown-item {
+    color: #ce24ce !important;
+    background: #fff !important;    
+}
+
 .navbar-toggler{
     border: none;
     &:focus {

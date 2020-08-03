@@ -43,7 +43,17 @@ body {
     }
 }
 
+.alert {
+    margin-top: 6rem !important;
+    z-index: 3;
+}
+
+
 @media (max-width: 768px) {
+    .alert {
+        width: 100%;
+    }
+
     .register-section {
         width: 100%;
         border: none; 

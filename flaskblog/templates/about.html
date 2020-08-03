@@ -23,7 +23,11 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
+                    {% if image_file %}
+                    <img src="{{ image_file}}" alt="account" class="avatar">
+                    {% else %}
                     <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    {% endif %}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownId">
                     {% if current_user.is_authenticated %}

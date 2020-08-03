@@ -3,5 +3,199 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/account.scss.css') }}" />
 {% endblock header %}
 {% block content %}
-<div>{{ current_user.username }}</div>
+<nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
+    <a class="navbar-brand ml-lg-4" href="{{ url_for('home') }}">Kenzy</a>
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="collapsibleNavId">
+        <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">HOME <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('about') }}">ABOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CONTACT</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {% if image_file %}
+                    <img src="{{ image_file}}" alt="account" class="avatar">
+                    {% else %}
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    {% endif %} </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="dropdown-item active" href="{{ url_for('account') }}">Account</a>
+                    {% else %}
+                    <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
+                    <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="account-content">
+    <div class="media">
+        <img src="{{ image_file }}" alt="avatar" class="avatar img-thumbnails ">
+        <div class="media-body">
+            <p class="fullname">{{current_user.fullname}}</p>
+            <small class="username text-muted">{{current_user.username}}</small>
+            <p class="job-title">{{ current_user.job_title }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <legend class="mb-4">Account Info</legend>
+        <div class="form-group">
+            {{ form.fullname.label(class="form-control-label") }}
+            {% if form.fullname.errors %}
+            {{ form.fullname(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.fullname.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.fullname(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.username.label(class="form-control-label") }}
+            {% if form.username.errors %}
+            {{ form.username(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.username.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.username(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.job_title.label(class="form-control-label") }}
+            {% if form.job_title.errors %}
+            {{ form.job_title(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.job_title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.job_title(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.location.label(class="form-control-label") }}
+            {% if form.location.errors %}
+            {{ form.location(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.location.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.location(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.bio.label(class="form-control-label") }}
+            {% if form.bio.errors %}
+            {{ form.bio(class="form-control is-invalid", rows="20")}}
+            <div class="invalid-feedback">
+                {% for error in form.bio.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.bio(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.twitter_link.label(class="form-control-label") }}
+            {% if form.twitter_link.errors %}
+            {{ form.twitter_link(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.twitter_link.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.twitter_link(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.facebook_link.label(class="form-control-label") }}
+            {% if form.facebook_link.errors %}
+            {{ form.facebook_link(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.facebook_link.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.facebook_link(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.instagram_link.label(class="form-control-label") }}
+            {% if form.instagram_link.errors %}
+            {{ form.instagram_link(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.instagram_link.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.instagram_link(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.linkedin_link.label(class="form-control-label") }}
+            {% if form.linkedin_link.errors %}
+            {{ form.linkedin_link(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.linkedin_link.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.linkedin_link(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.picture.label() }}
+            {{ form.picture(class="form-control-file") }}
+            {% if form.picture.errors %}
+            {% for error in form.picture.errors %}
+            <span class="text-danger">{{ error }}</span><br>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input class="form-control" name="email" placeholder="ekeneonyekaba@gmail.com" readonly>
+        </div>
+        <div class="form-group mt-4">
+            {{ form.submit(class="btn update-btn")}}
+        </div>
+    </form>
+
+</div>
 {% endblock content %}
