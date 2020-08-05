@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/account.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
+    <a class="navbar-brand ml-lg-4" href="{{ url_for('home') }}">Kenzy</a>
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="collapsibleNavId">
+        <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">HOME <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('about') }}">ABOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CONTACT</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {% if image_file %}
+                    <img src="{{ image_file }}" alt="account" class="avatar">
+                    {% else %}
+                    <i class="fa fa-user-circle fa-2x" aria-hidden="true"></i>
+                    {% endif %} </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                    <a class="dropdown-item active" href="{{ url_for('new_post') }}">New Post</a>
+                    {% else %}
+                    <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
+                    <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="create-post-content">
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <legend class="mb-4">{{ legend }}</legend>
+        <div class="form-group">
+            {{ form.title.label(class="form-control-label") }}
+            {% if form.title.errors %}
+            {{ form.title(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.title(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.category.label(class="form-control-label") }}
+            {% if form.category.errors %}
+            {{ form.category(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.category.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.category(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.content.label(class="form-control-label") }}
+            {% if form.content.errors %}
+            {{ form.content(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.content(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.image_file.label() }}
+            {{ form.image_file(class="form-control-file") }}
+            {% if form.image_file.errors %}
+            {% for error in form.image_file.errors %}
+            <span class="text-danger">{{ error }}</span><br>
+            {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group mt-4">
+            {{ form.submit(class="btn create-btn")}}
+        </div>
+    </form>
+</div>
+
+{% endblock content %}
