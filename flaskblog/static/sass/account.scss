@@ -6,10 +6,9 @@
     padding: 0;
 }
 
-.account-content {
-    width: 60%;
+.account-content, .create-post-content {
+    width: 70%;
     margin:  6rem auto 2rem auto;
-    // padding-bottom: 3rem;
     .media {
         width: 80%;
         margin: auto;
@@ -65,7 +64,7 @@
             .form-control {
                 border: 1px solid #ce24ce;
             }
-            .update-btn {
+            .update-btn, .create-btn {
                 background: #ce24ce;
                 color: #ffffff;
                 border-color: #ce24ce;
@@ -79,8 +78,8 @@
 
 
 
-@media (max-width: 768px) {
-    .account-content {
+@media (max-width: 800px) {
+    .account-content, .create-post-content {
         width: 100%;
         margin: 6rem auto;
         .media {

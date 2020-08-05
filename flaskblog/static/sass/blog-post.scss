@@ -1,6 +1,7 @@
 .blog-posts {
     border-radius: 0.5rem;
     width: 95%;
+    min-height: 40rem;
     background: white;
     padding: 1rem;
     margin: -3rem auto 0 auto ;
@@ -28,15 +29,7 @@
                 color: #fff;
                 font-size: 1.5rem;
             }
-            .read-more {
-                background: #ce24ce !important;
-                color: #fff;
-                border: none;
-                outline: none;
-                padding: 0.7rem 1.7rem;
-                border-radius: 0.2rem;
-                border-color: #ce24ce;
-            }
+            
         }
     }
 }

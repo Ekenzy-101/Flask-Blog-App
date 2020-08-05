@@ -9,7 +9,7 @@ body {
 }
 
 .register-section {
-    width: 40%;
+    width: 50%;
     padding: 2rem;
     border: 2px solid #ce24ce;
     border-radius: 0.6rem;
@@ -49,7 +49,7 @@ body {
 }
 
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .alert {
         width: 100%;
     }

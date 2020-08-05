@@ -18,3 +18,26 @@
         text-transform: uppercase;
     }
 }
+
+@media (max-width: 800px) {
+    .about-us {
+            h3 {
+                color: #ce24ce;
+                font-size: 1.1rem !important;
+                text-transform: uppercase;
+            }
+    }
+    .carousel-item {
+        img {
+            height: 25rem;
+        }
+        .carousel-caption {
+            h3 {
+                color: #ce24ce;
+                font-size: 1.2rem;
+                text-transform: uppercase;
+            }
+        }
+        
+    }
+}

@@ -5,7 +5,7 @@ body {
 }
 
 .register-section {
-    width: 40%;
+    width: 50%;
     margin: auto;
     margin-top: 20vh;
     padding: 2rem;
@@ -45,7 +45,7 @@ body {
     z-index: 3;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .alert {
         width: 100%;
     }
