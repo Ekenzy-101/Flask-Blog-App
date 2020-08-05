@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
+from flask_wtf.file import FileField, FileAllowed, FileRequired
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField, SelectField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, ValidationError, URL, Optional
 from flaskblog.models import User
 from flask_login import current_user
@@ -36,7 +36,7 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", validators=[
         InputRequired(), Length(min=6, max=50)])
     remember = BooleanField("Remember Me")
-    submit = SubmitField("LOGIN")
+    submit = SubmitField("LOG IN")
 
 
 class UpdateAccountForm(FlaskForm):
@@ -51,7 +51,7 @@ class UpdateAccountForm(FlaskForm):
     location =  StringField("Location")
     bio = TextAreaField("Bio")
     picture = FileField("Update Profile Picture", validators=[FileAllowed(["jpg", "jpeg", "jfif", "png"])])
-    submit = SubmitField("UPDATE")
+    submit = SubmitField("UPDATE INFO")
 
     def validate_username(self, username):
         if username.data  != current_user.username:
@@ -64,3 +64,14 @@ class UpdateAccountForm(FlaskForm):
             user = User.query.filter_by(fullname=fullname.data).first()
             if user:
                 raise ValidationError("Email is  taken. Please choose another one")
+
+
+class PostForm(FlaskForm):
+    title = StringField("Title", validators=[InputRequired()])
+    content = TextAreaField("Content", validators=[InputRequired()])
+    category = SelectField("Content", 
+    choices=[("Politics", "Politics"), ("Science", "Science"), ("Sport", "Sport"), ("Technology", "Technology"),
+    ("Entertainment", "Entertainment")])
+    image_file = FileField("Upload Post Picture", 
+    validators=[FileAllowed(["jpg", "jpeg", "jfif", "png"]), FileRequired()])
+    submit = SubmitField("CREATE POST")
