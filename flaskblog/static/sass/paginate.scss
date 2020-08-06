@@ -1,0 +1,15 @@
+.paginate {
+    margin-top: 1rem;
+    .btn {
+        background: #ce24ce;
+        color: #ffffff;
+        border-radius: 1.3rem;
+        border-color: #ce24ce;
+    }
+    .next {
+        float: right;
+    }
+    .prev {
+        float: left;
+    }
+}

@@ -1,0 +1,125 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
+    <a class="navbar-brand ml-lg-4" href="{{ url_for('home') }}">Kenzy</a>
+    <button class="navbar-toggler " type="button" data-toggle="collapse" data-target="#collapsibleNavId"
+        aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse  " id="collapsibleNavId">
+        <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('home') }}">HOME <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="{{ url_for('about') }}">ABOUT</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">CONTACT</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    {% if image_file %}
+                    <img src="{{ image_file}}" alt="account" class="avatar">
+                    {% else %}
+                    <i class="fas fa-user-circle fa-2x"></i>
+                    {% endif %}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownId">
+                    {% if current_user.is_authenticated %}
+                    <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
+                    <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
+                    <a class="dropdown-item" href="{{ url_for('new_post') }}">New Post</a>
+                    {% else %}
+                    <a class="dropdown-item" href="{{ url_for('login') }}">Login</a>
+                    <a class="dropdown-item" href="{{ url_for('register') }}">Register</a>
+                    {% endif %}
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="media">
+    <img src="{{ image_file }}" alt="avatar" class="img-user img-thumbnails ">
+    <div class="media-body">
+        <p class="fullname">{{user.fullname}}</p>
+        <small class="username text-muted">{{user.username}}</small>
+        <p class="job-title">{{ user.job_title }}</p>
+        <p class="email">
+            <i class="fas fa-envelope" aria-hidden="true"></i>
+            {{user.email}}
+        </p>
+        <p class="location">
+            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+            {{user.location}}
+        </p>
+        <div class="media-links">
+            {% if len(user.facebook_link) > 0 %}
+            <a href="{{ user.facebook_link }}" class="link text-muted">
+                <i class="fab fa-facebook-square"></i>
+            </a>
+            {% endif %}
+            {% if len(user.instagram_link) > 0 %}
+            <a href="{{ user.instagram_link }}">
+                <span class="instagram">
+                    <span class="fab fa-instagram"></span>
+                </span>
+            </a>
+            {% endif %}
+            {% if len(user.twitter_link) > 0 %}
+            <a href="{{ user.twitter_link }}">
+                <i class="fab fa-twitter-square"></i>
+            </a>
+            {% endif %}
+            {% if len(user.linkedin_link) > 0 %}
+            <a href="{{ user.linkedin_link }}">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="media-body">
+        <h3 class="about">ABOUT</h3>
+        <p>
+            {{user.bio}}
+        </p>
+    </div>
+</div>
+
+<h3 class="heading">CHECK OUT {{user.username}} POSTS </h3>
+
+<section class="blog-posts row">
+    {% for post in posts.items %}
+    <div class="col-xs-12 col-lg-6">
+        <div class="card text-center">
+            <img src="{{ url_for('static', filename='post-pics/' + post.image_file ) }}" alt="blog-image"
+                class="blog-img card-img-top" />
+            <div class="card-body">
+                <p class="blog-category text-muted">{{ post.category }}</p>
+                <h3 class="card-title">{{ post.title }}</h3>
+                <div class="d-flex justify-content-around align-items-center mb-2">
+                    <img src="{{url_for('static', filename='profile-pics/' + post.author.image_file)}}" alt="avatar"
+                        class="user-img">
+                    <p class="card-text text-muted"><a href="#" class="user-link">{{post.author.username}}</a> | |
+                        {{post.created_at.strftime("%d %B, %Y") }}</p>
+                </div>
+                <a class="btn read-more" href="{{ url_for('get_post', id=post.id) }}">READ MORE</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <div class="col-12 paginate">
+        {% if prev_url %}
+        <a class="btn prev" href="{{ prev_url }}"><i class="fas fa-chevron-left mr-2"></i> Prev Page</a>
+        {% endif %}
+        {% if next_url %}
+        <a class="btn next" href="{{ next_url }}">Next Page<i class="fas fa-chevron-right ml-2"></i></a>
+        {% endif %}
+    </div>
+</section>
+{% endblock content %}
