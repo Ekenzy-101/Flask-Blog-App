@@ -3,19 +3,27 @@ import os
 from PIL import Image
 from flask import render_template, flash, redirect, url_for, request, abort
 from flaskblog.models import User, Post
-from flaskblog.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
+from flaskblog.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
+                             PostForm, RequestResetForm, ResetPasswordForm)
 from flaskblog import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 
 
 @app.route("/")
 def home():
-    posts = Post.query.all()
+    page = request.args.get("page", 1, type=int)
+    posts = Post.query.order_by(
+        Post.updated_at.desc()).paginate(page, 1, False)
+    next_url = url_for("home", page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for("home", page=posts.next_num) \
+        if posts.has_prev else None
     if getattr(current_user, "image_file", "") == "":
-        return render_template("home.html", title="Home", posts=posts)
+        return render_template("home.html", title="Home", posts=posts, next_url=next_url, prev_url=prev_url)
     else:
-        image_file = url_for("static", filename="profile-pics/" + current_user.image_file )
-        return render_template("home.html", title="Home",  image_file=image_file, posts=posts)
+        image_file = url_for(
+            "static", filename="profile-pics/" + current_user.image_file)
+        return render_template("home.html", title="Home",  image_file=image_file, posts=posts, next_url=next_url, prev_url=prev_url)
 
 
 @app.route("/about")
@@ -23,7 +31,8 @@ def about():
     if getattr(current_user, "image_file", "") == "":
         return render_template("about.html", title="About")
     else:
-        image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
+        image_file = url_for(
+            "static", filename="profile-pics/" + current_user.image_file)
         return render_template("about.html", title="About", image_file=image_file)
 
 
@@ -33,11 +42,14 @@ def register():
         return redirect(url_for("home"))
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode("utf-8")
-        user = User(username=form.username.data, fullname=form.fullname.data, email=form.email.data, password=hashed_password)
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data).decode("utf-8")
+        user = User(username=form.username.data, fullname=form.fullname.data,
+                    email=form.email.data, password=hashed_password)
         db.session.add(user)
         db.session.commit()
-        flash(f"Your account has been created! You are now able to Log In", category="success")
+        flash(f"Your account has been created! You are now able to Log In",
+              category="success")
         return redirect(url_for("login"))
     return render_template("register.html", title="Register", form=form)
 
@@ -53,9 +65,10 @@ def login():
             login_user(user, remember=form.remember.data)
             next_page = request.args.get("next")
             flash(f"Successfully Logged In", category="success")
-            return  redirect(next_page) if next_page else  redirect(url_for("home"))
+            return redirect(next_page) if next_page else redirect(url_for("home"))
         else:
-            flash(f"Login Unsuccessful. Please check email and password", category="danger")
+            flash(f"Login Unsuccessful. Please check email and password",
+                  category="danger")
     return render_template("login.html", title="Login", form=form)
 
 
@@ -64,11 +77,13 @@ def logout():
     logout_user()
     return redirect(url_for("home"))
 
+
 def save_profile_pic(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, "static/profile-pics", picture_fn)
+    picture_path = os.path.join(
+        app.root_path, "static/profile-pics", picture_fn)
 
     output_size = (250, 250)
     i = Image.open(form_picture)
@@ -106,9 +121,11 @@ def account():
         form.instagram_link.data = current_user.instagram_link
         form.job_title.data = current_user.job_title
         form.bio.data = current_user.bio
-        form.location.data = current_user.location 
-    image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
+        form.location.data = current_user.location
+    image_file = url_for(
+        "static", filename="profile-pics/" + current_user.image_file)
     return render_template("account.html", title="Account", form=form, image_file=image_file)
+
 
 def save_post_pic(form_picture):
     random_hex = secrets.token_hex(8)
@@ -123,6 +140,7 @@ def save_post_pic(form_picture):
 
     return picture_fn
 
+
 @app.route("/post/new", methods=["GET", "POST"])
 @login_required
 def new_post():
@@ -130,21 +148,23 @@ def new_post():
     if form.validate_on_submit():
         pic_file = save_post_pic(form.image_file.data)
         value = dict(form.category.choices).get(form.category.data)
-        post = Post(title=form.title.data.strip(), content=form.content.data.strip(), 
-        category=value, author=current_user, image_file=pic_file)
+        post = Post(title=form.title.data.strip(), content=form.content.data.strip(),
+                    category=value, author=current_user, image_file=pic_file)
         db.session.add(post)
         db.session.commit()
         flash("Your post has been created successfully!", category="success")
         return redirect(url_for("home"))
-    image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
+    image_file = url_for(
+        "static", filename="profile-pics/" + current_user.image_file)
     return render_template("create-post.html", title="New Post",
-    form=form, image_file=image_file, legend="New Post")
+                           form=form, image_file=image_file, legend="New Post")
 
 
 @app.route("/posts/<id>")
 def get_post(id):
     post = Post.query.get_or_404(id)
-    image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
+    image_file = url_for(
+        "static", filename="profile-pics/" + current_user.image_file)
     return render_template("post.html", title=post.title, post=post, image_file=image_file)
 
 
@@ -168,8 +188,10 @@ def update_post(id):
         form.content.data = post.content
         form.category.data = post.category
         form.image_file.data = post.image_file
+    image_file = url_for(
+        "static", filename="profile-pics/" + current_user.image_file)
     return render_template("create-post.html", title="Update Post",
-    form=form, legend="Update Post")
+                           form=form, legend="Update Post", image_file=image_file)
 
 
 @app.route("/posts/<id>/delete", methods=["POST"])
@@ -182,3 +204,23 @@ def delete_post(id):
     db.session.commit()
     flash("Your post has been deleted successfully!", category="success")
     return redirect(url_for("home"))
+
+
+@app.route("/users/<username>")
+def get_user(username):
+    page = request.args.get("page", 1, type=int)
+    user = User.query.filter_by(username=username).first_or_404()
+    posts = Post.query.filter_by(author=user)\
+        .order_by(Post.updated_at.desc())\
+        .paginate(page, 1, False)
+    next_url = url_for("get_user", username=username, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for("get_user", username=username, page=posts.next_num) \
+        if posts.has_prev else None
+    if getattr(current_user, "image_file", "") == "":
+        return render_template("user.html", title=user.username, user=user, posts=posts,
+                               next_url=next_url, prev_url=prev_url)
+    else:
+        image_file = url_for(
+            "static", filename="profile-pics/" + current_user.image_file)
+        return render_template("user.html", title=user.username, len=len, image_file=image_file, user=user, posts=posts, prev_url=prev_url, next_url=next_url)
