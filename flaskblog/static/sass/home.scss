@@ -1,5 +1,6 @@
 @import "nav.scss";
 @import "blog-post.scss";
+@import "paginate.scss";
 
 .background {
     background: #ce24ce;
@@ -30,10 +31,14 @@
     }
     .card-text {
         flex: 2;
+        a {
+            color: #ce24ce !important;
+            text-decoration: none;
+        }
     }
 }
 
-.avatar {
+.user-img {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -50,7 +55,6 @@
 }
 
 @media (max-width: 768px) {
-    // k
     .card {
     width: 100%;
     .card-title {
