@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block header%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.scss.css') }}" />
+{% endblock header %}
+{% block content %}
+<div class="register-section">
+    <form method="POST" >
+        {{ form.hidden_tag() }}
+        <legend class="mb-4">Reset Your Password</legend>
+        <div class="form-group">
+            <strong>Enter your user account's verified email address and we will send you a password reset link.</strong>
+        </div>
+        <div class="form-group">
+            {{ form.email.label(class="form-control-label") }}
+            {% if form.email.errors %}
+            {{ form.email(class="form-control is-invalid")}}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {%  else %}
+            {{ form.email(class="form-control")}}
+            <div class="valid-feedback">Looks good</div>
+            {% endif %}
+        </div>
+        <div class="form-group mt-4">
+            {{ form.submit(class="btn register-btn")}}
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

@@ -45,7 +45,7 @@
 </nav>
 
 <div class="media">
-    <img src="{{ image_file }}" alt="avatar" class="img-user img-thumbnails ">
+    <img src="{{ url_for('static', filename='profile-pics/' + user.image_file) }}" alt="avatar" class="img-user img-thumbnails ">
     <div class="media-body">
         <p class="fullname">{{user.fullname}}</p>
         <small class="username text-muted">{{user.username}}</small>
