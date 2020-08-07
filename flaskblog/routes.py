@@ -5,8 +5,9 @@ from flask import render_template, flash, redirect, url_for, request, abort
 from flaskblog.models import User, Post
 from flaskblog.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                              PostForm, RequestResetForm, ResetPasswordForm)
-from flaskblog import app, db, bcrypt
+from flaskblog import app, db, bcrypt, mail
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_mail import Message
 
 
 @app.route("/")
@@ -100,7 +101,7 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             picture_file = save_profile_pic(form.picture.data)
-            current_user.image_file = picture_file
+            current_user.image_file = picture_file.strip()
         current_user.username = form.username.data.strip()
         current_user.fullname = form.fullname.data.strip()
         current_user.facebook_link = form.facebook_link.data.strip()
@@ -146,7 +147,7 @@ def save_post_pic(form_picture):
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        pic_file = save_post_pic(form.image_file.data)
+        pic_file = save_post_pic(form.image_file.data).strip()
         value = dict(form.category.choices).get(form.category.data)
         post = Post(title=form.title.data.strip(), content=form.content.data.strip(),
                     category=value, author=current_user, image_file=pic_file)
@@ -219,8 +220,62 @@ def get_user(username):
         if posts.has_prev else None
     if getattr(current_user, "image_file", "") == "":
         return render_template("user.html", title=user.username, user=user, posts=posts,
-                               next_url=next_url, prev_url=prev_url)
+                                len=len, next_url=next_url, prev_url=prev_url)
     else:
         image_file = url_for(
             "static", filename="profile-pics/" + current_user.image_file)
         return render_template("user.html", title=user.username, len=len, image_file=image_file, user=user, posts=posts, prev_url=prev_url, next_url=next_url)
+
+
+def send_reset_email(user):
+    token  = user.get_reset_token()
+    msg = Message("Password Reset Request", sender="ekeneonyekaba.gmail.com", recipients=[user.email])
+    msg.body = f"""We heard that you lost your password. Sorry about that!
+But don't worry! You can use the following link to reset your password:
+
+{url_for("reset_token", token=token, _external=True)}
+
+If you don't use the link within 3 hours, it will expire. To get a new password reset link, visit
+{url_for("reset_request")}
+
+If you did not make this request then simply ignore this email and no changes
+will be made.
+
+Thanks
+Kenzy
+"""
+    mail.send(msg)
+
+
+@app.route("/reset-password", methods=["GET", "POST"])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data.strip()).first()
+        send_reset_email(user)
+        flash("""Check your email for a link to reset your password. If it doesn't appear within a
+few minutes, check your spam folder""", category="info")
+        return redirect(url_for("login"))
+    return render_template("reset-request.html", title="Reset Password", form=form)
+
+
+@app.route("/reset-password/<token>", methods=["GET", "POST"])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for("home"))
+    user = User.verify_reset_token(token)
+    if user is None:
+        flash("It looks like you clicked on an invalid password reset link. Please try again", category="danger")
+        return redirect(url_for("reset_request"))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data.strip()).decode("utf-8")
+        user.password = hashed_password
+        db.session.commit()
+        flash(f"Your password has been updated! You are now able to Log In",
+              category="success")
+        return redirect(url_for("login"))
+    return render_template("reset-token.html", title="Reset Password", user=user, form=form)
