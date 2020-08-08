@@ -3,27 +3,37 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail 
+from flaskblog.config import Config
 from sassutils.wsgi import SassMiddleware
-import os
 
-app = Flask(__name__)
-app.config["SECRET_KEY"] = "38a9b7992e3710d8b125d2eee83a2913"
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
-app.wsgi_app = SassMiddleware(app.wsgi_app, {
-    'flaskblog': ('static/sass', 'static/css', '/static/css')
-})
-db = SQLAlchemy(app)
-bcrypt = Bcrypt(app)
-login_manager = LoginManager(app)
-login_manager.login_view = "login"
+
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+login_manager = LoginManager()
+login_manager.login_view = "users.login"
 login_manager.login_message_category = "info" 
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = os.environ.get("USERNAME") 
-app.config["MAIL_PASSWORD"] = os.environ.get("PASSWORD")
-mail = Mail(app)
+mail = Mail()
 
-from flaskblog import routes
+
+
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+    app.wsgi_app = SassMiddleware(app.wsgi_app, {
+        'flaskblog': ('static/sass', 'static/css', '/static/css')
+    })
+
+    db.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
+
+    from flaskblog.main.routes import main
+    from flaskblog.posts.routes import posts
+    from flaskblog.users.routes import users
+    app.register_blueprint(main)
+    app.register_blueprint(posts)
+    app.register_blueprint(users)
+
+    return app
