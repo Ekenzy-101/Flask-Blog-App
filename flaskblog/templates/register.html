@@ -4,9 +4,8 @@
 {% endblock header %}
 {% block content %}
 <div class="register-section">
-    <form method="POST">
+    <form method="POST" novalidate>
         {{ form.hidden_tag() }}
-
         <legend class="mb-4">Join Kenzy's Blog</legend>
         <div class="form-group">
             {{ form.username.label(class="form-control-label") }}
@@ -83,7 +82,7 @@
         </div>
         <div class="form-group">
             <p class="text-center">
-                Already Have An Account? <a class="ml-2" href="{{ url_for('login') }}">Sign In</a>
+                Already Have An Account? <a class="ml-2" href="{{ url_for('users.login') }}">Sign In</a>
             </p>
         </div>
     </form>

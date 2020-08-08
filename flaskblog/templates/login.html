@@ -4,7 +4,7 @@
 {% endblock header %}
 {% block content %}
 <div class="register-section">
-    <form method="POST">
+    <form method="POST" novalidate>
         {{ form.hidden_tag() }}
         <legend class="mb-4">Welcome Back</legend>
         <div class="form-group">
@@ -44,12 +44,12 @@
         </div>
         <div class="form-group">
             <p class="text-center">
-                Don't Have An Account? <a class="ml-2" href="{{ url_for('register') }}">Sign Up</a>
+                Don't Have An Account? <a class="ml-2" href="{{ url_for('users.register') }}">Sign Up</a>
             </p>
         </div>
         <div class="form-group">
             <p class="text-center">
-                Forgot Password? <a class="ml-2" href="{{ url_for('reset_request') }}">Reset</a>
+                Forgot Password? <a class="ml-2" href="{{ url_for('users.reset_request') }}">Reset</a>
             </p>
         </div>
     </form>
