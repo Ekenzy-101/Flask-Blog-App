@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block header%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/home.scss.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/error.scss.css') }}" />
 {% endblock header %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
@@ -11,10 +11,10 @@
     </button>
     <div class="collapse navbar-collapse  " id="collapsibleNavId">
         <ul class="navbar-nav w-75 d-flex align-items-center justify-content-around mx-auto mt-2 mt-lg-0 ">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('main.home') }}">HOME <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('main.about') }}">ABOUT</a>
             </li>
             <li class="nav-item">
@@ -44,40 +44,18 @@
     </div>
 </nav>
 
-<main class="background">
-    BLOG
-</main>
-
-
-<section class="blog-posts row">
-    {% for post in posts.items %}
-    <div class="col-xs-12 col-md-6 mb-4">
-        <div class="card text-center">
-            <img src="{{ url_for('static', filename='post-pics/' + post.image_file ) }}" alt="blog-image"
-                class="blog-img card-img-top" />
-            <div class="card-body">
-                <p class="blog-category text-muted">{{ post.category }}</p>
-                <h3 class="card-title">{{ post.title }}</h3>
-                <div class="d-flex justify-content-around align-items-center mb-2">
-                    <img src="{{url_for('static', filename='profile-pics/' + post.author.image_file)}}" alt="avatar"
-                        class="user-img">
-                    <p class="card-text text-muted"><a
-                            href="{{ url_for('users.get_user' , username=post.author.username) }}">{{post.author.username}}</a>
-                        | |
-                        {{post.updated_at.strftime("%d %B, %Y") }}</p>
-                </div>
-                <a class="btn read-more" href="{{ url_for('posts.get_post', id=post.id) }}">READ MORE</a>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-    <div class="col-12 paginate">
-        {% if prev_url %}
-        <a class="btn prev" href="{{ prev_url }}"><i class="fas fa-chevron-left mr-2"></i> Prev Page</a>
-        {% endif %}
-        {% if next_url %}
-        <a class="btn next" href="{{ next_url }}">Next Page<i class="fas fa-chevron-right ml-2"></i></a>
-        {% endif %}
+<section class="error-content">
+    <div>
+        <h1 class="error-code">404</h1>
+        <strong class="error-title">Oops! File not found</strong>
+        <p class="main">I am afraid you have found a page that doesn't exist on Kenzy's Blog.
+            That can happen when you follow a link to something that has since been deleted.
+            Or the link was incorrect to begin with
+        </p>
+        <p class="secondary">
+            Sorry about that. We've logged the error for review, in case it's our fault.  
+        </p>
     </div>
 </section>
+
 {% endblock content %}

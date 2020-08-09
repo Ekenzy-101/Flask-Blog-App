@@ -1,0 +1,57 @@
+@import "nav.scss";
+
+body{
+    height: 100vh;
+    width: 100vw;
+}
+
+.error-content {
+    height: 50vh;
+    width: 100vw;
+    margin: 0;
+    margin-top: 4.5rem;
+    background: #ce24ce;
+    color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    div {
+        width: 60%;
+        .error-code {
+            letter-spacing: 1px;
+            font-size: 5rem;
+            color: #000000;
+        }
+        .error-title {
+            display: block;
+            color: #ffffff;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+@media (max-width: 750px) {
+    .error-content {
+        div {
+            width: 75%;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .error-content {
+        div {
+            width: 85%;
+            .error-code {
+                font-size: 4rem;
+            }
+            .error-title {
+                font-size: 1rem;
+            }
+            .main, .secondary {
+                font-size: 0.8rem;
+            }
+        }
+    }
+}
