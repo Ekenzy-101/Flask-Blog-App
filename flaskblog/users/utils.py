@@ -24,15 +24,15 @@ def save_profile_pic(form_picture):
 def send_reset_email(user):
     token = user.get_reset_token()
     msg = Message("Password Reset Request",
-                    sender="ekeneonyekaba.gmail.com", recipients=[user.email])
+                    sender="noreply@demo.com", recipients=[user.email])
     msg.body = f"""We heard that you lost your password. Sorry about that!
 But don't worry! You can use the following link to reset your password:
 
-{url_for("reset_token", token=token, _external=True)}
+{url_for("users.reset_token", token=token, _external=True)}
 
 If you don't use the link within 3 hours, it will expire. To get a new password reset link, visit:
 
-{url_for("reset_request", _external=True)}
+{url_for("users.reset_request", _external=True)}
 
 If you did not make this request then simply ignore this email and no changes
 will be made.

@@ -1,6 +1,10 @@
 import os
-from dotenv import load_dotenv
-load_dotenv()
+from dotenv import load_dotenv, find_dotenv
+
+# Load Environmental Variables
+ENV_FILE = find_dotenv()
+if ENV_FILE:
+    load_dotenv(ENV_FILE)
 
 class Config:
     MAIL_SERVER = "smtp.gmail.com"
