@@ -47,7 +47,7 @@
 <section class="post-section">
     <p class="text-muted post-category">{{ post.category }}</p>
     <p class="post-title">{{post.title}}</p>
-    <img src="{{ url_for('static', filename='post-pics/' + post.image_file) }}" alt="post-img" class="post-img" />
+    <img src="{{ post.image_file }}" alt="post-img" class="post-img" />
     <div class="post-info">
         <div class="d-flex justify-content-around align-items-center">
             <a href="{{ post.author.facebook_link }}">
@@ -69,7 +69,7 @@
             <span>Posted On {{post.updated_at.strftime("%d %b, %Y, %I:%M %p")}}</span>
 
             <span class="mt-3">
-                <img src="{{url_for('static', filename='profile-pics/' + post.author.image_file )}}" alt="avatar"
+                <img src="{{ post.author.image_file }}" alt="avatar"
                     class="img-author mr-2">
                 {{post.author.fullname}}
             </span>

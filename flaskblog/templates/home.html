@@ -53,13 +53,13 @@
     {% for post in posts.items %}
     <div class="col-xs-12 col-md-6 mb-4">
         <div class="card text-center">
-            <img src="{{ url_for('static', filename='post-pics/' + post.image_file ) }}" alt="blog-image"
+            <img src="{{ post.image_file }}" alt="blog-image"
                 class="blog-img card-img-top" />
             <div class="card-body">
                 <p class="blog-category text-muted">{{ post.category }}</p>
                 <h3 class="card-title">{{ post.title }}</h3>
                 <div class="d-flex justify-content-around align-items-center mb-2">
-                    <img src="{{url_for('static', filename='profile-pics/' + post.author.image_file)}}" alt="avatar"
+                    <img src="{{ post.author.image_file }}" alt="avatar"
                         class="user-img">
                     <p class="card-text text-muted"><a
                             href="{{ url_for('users.get_user' , username=post.author.username) }}">{{post.author.username}}</a>
