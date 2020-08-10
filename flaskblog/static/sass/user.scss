@@ -1,6 +1,7 @@
 @import "./nav.scss";
 @import "./blog-post.scss";
 @import "./paginate.scss";
+@import "variable.scss";
 
 .media {
     margin: 7rem auto 2rem auto;
@@ -15,14 +16,14 @@
         padding-left: 3rem;
         letter-spacing: 2px;
         .about {
-            color: #ce24ce;
+            color: $darken-blue;
             font-size: 1.1rem;
             text-align: center;
             font-weight: bold;
         }
         .fullname {
             font-weight: bold;
-            color: #ce24ce;
+            color: $darken-blue;
             text-transform: uppercase;
             margin-bottom: 0.2rem;
             font-size: 1.5rem;
@@ -37,7 +38,7 @@
         p {
             margin-bottom: 0;
             .fas {
-                color: #ce24ce;
+                color: $darken-blue;
                 width: 16px;
             }
         }
@@ -83,7 +84,7 @@
 .blog-img {
     height: 17rem;
     border-radius: inherit;
-    border-bottom: 1px solid #ce24ce;
+    border-bottom: 1px solid $darken-blue;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -97,9 +98,9 @@
 .card {
     width: 93%;
     margin: auto;
-    border: 1px solid #ce24ce;
+    border: 1px solid $darken-blue;
     .card-title {
-        color: #ce24ce;
+        color: $darken-blue;
         font-size: 1.3rem;
         text-transform: uppercase;
         margin-bottom: 0.2rem;
@@ -148,7 +149,7 @@
     .card {
         width: 100%;
         .card-title {
-            color: #ce24ce;
+            color: $darken-blue;
             text-transform: uppercase;
             margin-bottom: 0.2rem;
             font-size: 1.1rem;
@@ -173,20 +174,20 @@
 .blog-posts {
     width: 90% ;
     .read-more {
-        background: #ce24ce !important;
+        background: $darken-blue !important;
         color: #fff;
         border: none;
         outline: none;
         padding: 0.5rem 1.5rem;
         border-radius: 0.2rem;
-        border-color: #ce24ce;  
+        border-color: $darken-blue;  
     }
 }
 
 .heading {
     text-align: center;
     text-transform: uppercase;
-    color: #ce24ce;
+    color: $darken-blue;
     font-weight: bold;
     margin-bottom: 4rem;
 }

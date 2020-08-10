@@ -1,14 +1,22 @@
+@import "variable.scss";
+
 .nav-link{
-    color: #ce24ce !important;
+    color: $grey ;
+    font-weight: bold;
+    &:hover {
+        color: $dark-blue !important;
+    }
 }
 
 .active > .nav-link {
     font-weight: bold;
+    color: $dark-blue !important;
 }
 
 .dropdown-menu {
     .active {
         font-weight: bold;
+        color: $dark-blue !important;
     }
 }
 
@@ -19,14 +27,17 @@
 }
 
 .dropdown-item {
-    color: #ce24ce !important;
-    background: #fff !important;    
+    color: $grey !important;
+    background: #fff !important;
+    &:hover {
+        color: $dark-blue !important;
+    }    
 }
 
 .navbar-toggler{
     border: none;
     &:focus {
-        outline: 3px auto #ce24ce !important;
+        outline: 3px auto $dark-blue !important;
     }
 }
 

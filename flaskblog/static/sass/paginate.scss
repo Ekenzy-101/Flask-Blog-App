@@ -1,10 +1,12 @@
+@import "variable.scss";
+
 .paginate {
     margin-top: 1rem;
     .btn {
-        background: #ce24ce;
+        background: $dark-blue;
         color: #ffffff;
         border-radius: 1.3rem;
-        border-color: #ce24ce;
+        border-color: $dark-blue;
     }
     .next {
         float: right;

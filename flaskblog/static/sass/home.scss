@@ -1,9 +1,10 @@
 @import "nav.scss";
 @import "blog-post.scss";
 @import "paginate.scss";
+@import "variable.scss";
 
 .background {
-    background: #ce24ce;
+    background: $darken-blue;
     width: 100%;
     padding: 7rem;
     font-size: 2rem;
@@ -14,7 +15,7 @@
 .blog-img {
     height: 18rem;
     border-radius: inherit;
-    border-bottom: 1px solid #ce24ce;
+    border-bottom: 1px solid $darken-blue;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
 }
@@ -28,9 +29,9 @@
 .card {
     width: 92%;
     margin: auto;
-    border: 1px solid #ce24ce;
+    border: 1px solid $darken-blue;
     .card-title {
-        color: #ce24ce;
+        color: $darken-blue;
         text-transform: uppercase;
         margin-bottom: 0.2rem;
         font-size: 1.3rem;
@@ -39,7 +40,7 @@
         flex: 2;
         font-size: 1rem;
         a {
-            color: #ce24ce !important;
+            color: $darken-blue !important;
             text-decoration: none;
         }
     }
@@ -50,13 +51,13 @@
     }
 
     .read-more {
-        background: #ce24ce !important;
+        background: $darken-blue !important;
         color: #fff;
         border: none;
         outline: none;
         padding: 0.5rem 1.5rem;
         border-radius: 0.2rem;
-        border-color: #ce24ce;
+        border-color: $darken-blue;
     }
 }
 

@@ -1,10 +1,9 @@
+@import "variable.scss";
+
 body {
     width: 100vw;
-    height: 100vh;
+    height: 100%;
     background: #f1f1f1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .register-section {
@@ -12,21 +11,23 @@ body {
     margin: auto;
     margin-top: 20vh;
     padding: 2rem;
-    border: 2px solid #ce24ce;
+    border: 2px solid $darken-blue;
     border-radius: 0.6rem;
     legend {
         font-weight: bold;
-        color: #ce24ce;
+        color: $darken-blue;
         text-align: center;
     }
     .form-group {
         width: 85%;
         margin: 1rem auto;
         input {
-            border: 1px solid #ce24ce; 
+            &:focus {
+                border: 1px solid $darken-blue; 
+            }
         }
         .register-btn {
-            background: #ce24ce;
+            background: $darken-blue;
             color: white;
             border-radius: 0.3rem;
             display: block;
@@ -34,9 +35,9 @@ body {
         }
         p {
             a {
-                color: #ce24ce;
+                color: $darken-blue;
                 &:hover {
-                    color: #ce24ce;
+                    color: $darken-blue;
                 }
             }
         }

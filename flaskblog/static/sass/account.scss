@@ -1,4 +1,5 @@
 @import "./nav.scss";
+@import "./variable.scss";
 
 * {
     box-sizing: border-box;
@@ -22,7 +23,7 @@
         }
         .media-body {
             .fullname {
-                color: #ce24ce;
+                color: $darken-blue;
                 font-weight: bold;
                 text-transform: uppercase;
                 font-size: 2rem;
@@ -43,7 +44,7 @@
         margin: auto;
         legend {
                 text-align: center;
-                color: #ce24ce;
+                color: $darken-blue;
                 text-transform: uppercase;
                 font-weight: 500;
         }
@@ -52,7 +53,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background: #ce24ce;
+                background: $darken-blue;
                 color: #ffffff;
                 font-weight: bold;
                 p {
@@ -62,12 +63,14 @@
                 }
             }
             .form-control {
-                border: 1px solid #ce24ce;
+                &:focus {
+                    border: 1px solid $darken-blue;
+                }
             }
             .update-btn, .create-btn {
-                background: #ce24ce;
+                background: $darken-blue;
                 color: #ffffff;
-                border-color: #ce24ce;
+                border-color: $darken-blue;
                 width: 100%;
                 text-align: center;
                 padding: 0.6rem 0;
@@ -91,7 +94,7 @@
             }
             .media-body {
                 .fullname {
-                    color: #ce24ce;
+                    color: $darken-blue;
                     font-weight: bold;
                     text-transform: uppercase;
                     font-size: 1.2rem;
@@ -112,7 +115,7 @@
             width: 90%;
             legend {
                 text-align: center;
-                color: #ce24ce;
+                color: $darken-blue;
                 text-transform: uppercase;
                 font-weight: 500;
             }
