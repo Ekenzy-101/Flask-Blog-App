@@ -17,9 +17,7 @@ def home():
     if getattr(current_user, "image_file", "") == "":
         return render_template("home.html", title="Home", posts=posts, next_url=next_url, prev_url=prev_url)
     
-    image_file = url_for(
-        "static", filename="profile-pics/" + current_user.image_file)
-    return render_template("home.html", title="Home",  image_file=image_file, posts=posts, next_url=next_url, prev_url=prev_url)
+    return render_template("home.html", title="Home",  image_file=current_user.image_file, posts=posts, next_url=next_url, prev_url=prev_url)
 
 
 @main.route("/about")
@@ -27,6 +25,4 @@ def about():
     if getattr(current_user, "image_file", "") == "":
         return render_template("about.html", title="About")
     
-    image_file = url_for(
-        "static", filename="profile-pics/" + current_user.image_file)
-    return render_template("about.html", title="About", image_file=image_file)
+    return render_template("about.html", title="About", image_file=current_user.image_file)

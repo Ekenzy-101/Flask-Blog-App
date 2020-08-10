@@ -1,25 +1,45 @@
 import os
 import secrets
-from PIL import Image
-from flask import url_for, current_app
+import boto3
+import logging
+from botocore.exceptions import ClientError
+from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
+from flask import Flask, current_app
 
+s3_client = boto3.client(
+    "s3",
+    region_name=current_app.config["AWS_REGION"],
+    aws_access_key_id=current_app.config["AWS_ACCESS_KEY_ID"],
+    aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"]
+)    
 
-def save_profile_pic(form_picture):
+def get_filename(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(
-        current_app.root_path, "static/profile-pics", picture_fn)
-
-    output_size = (100, 100)
-    i = Image.open(form_picture)
-    i.thumbnail(output_size)
-    i.save(picture_path)
-
+    
     return picture_fn
 
+
+def upload_file_to_s3(form_picture, bucket_name, acl="public-read", prefix="profile-pics/"):
+
+    try:
+        file_name = get_filename(form_picture)
+        prefixed_filename = prefix + file_name
+        s3_client.upload_fileobj(
+            form_picture,
+            bucket_name,
+            prefixed_filename,
+            ExtraArgs={
+                "ACL": acl,
+                "ContentType": form_picture.content_type
+            })
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return "{}{}".format(current_app.config["AWS_LOCATION"], prefixed_filename)
 
 def send_reset_email(user):
     token = user.get_reset_token()

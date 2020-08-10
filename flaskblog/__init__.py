@@ -15,28 +15,28 @@ login_manager.login_message_category = "info"
 mail = Mail()
 
 
-
-
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
     app.wsgi_app = SassMiddleware(app.wsgi_app, {
         'flaskblog': ('static/sass', 'static/css', '/static/css')
     })
-
+    
     db.init_app(app)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    
+    with app.app_context():
 
-    from flaskblog.main.routes import main
-    from flaskblog.posts.routes import posts
-    from flaskblog.users.routes import users
-    from flaskblog.errors.handlers import errors
+        from flaskblog.main.routes import main
+        from flaskblog.posts.routes import posts
+        from flaskblog.users.routes import users
+        from flaskblog.errors.handlers import errors
 
-    app.register_blueprint(errors)
-    app.register_blueprint(main)
-    app.register_blueprint(posts)
-    app.register_blueprint(users)
+        app.register_blueprint(errors)
+        app.register_blueprint(main)
+        app.register_blueprint(posts)
+        app.register_blueprint(users)
 
     return app

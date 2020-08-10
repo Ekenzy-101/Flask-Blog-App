@@ -20,7 +20,7 @@ class User(db.Model, UserMixin):
     job_title = db.Column(db.String(200), default="", nullable=False)
     email = db.Column(db.String(50), unique=True, nullable=False)
     image_file = db.Column(
-        db.String(20), nullable=False, default="default.jpg")
+        db.String(250), nullable=False, default="{}profile-pics/default.jpg".format(current_app.config["AWS_LOCATION"]))
     facebook_link = db.Column(db.String(150), default="",  nullable=False)
     linkedin_link = db.Column(db.String(150), default="", nullable=False)
     instagram_link = db.Column(db.String(150), default="", nullable=False)
@@ -58,7 +58,7 @@ class Post(db.Model):
     default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
     content = db.Column(db.Text, nullable=False)
     image_file = db.Column(
-        db.String(20), nullable=False, default="default-post.jpg")
+        db.String(250), nullable=False, default="default-post.jpg")
     category = db.Column(db.String(40), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
 

@@ -1,9 +1,16 @@
-from flask import Blueprint, redirect, render_template, request, url_for, abort, flash
+from flask import Blueprint, redirect, render_template, request, url_for, abort, flash, current_app
 from flaskblog import db, bcrypt, mail
 from flaskblog.models import User, Post
 from flaskblog.users.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateAccountForm
-from flaskblog.users.utils import save_profile_pic, send_reset_email
+from flaskblog.users.utils import upload_file_to_s3, send_reset_email
 from flask_login import current_user, login_user, logout_user, login_required
+import boto3
+
+s3_resource = boto3.resource(
+    "s3",
+    aws_access_key_id=current_app.config["AWS_ACCESS_KEY_ID"],
+    aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"]
+)
 
 users = Blueprint("users", __name__)
 
@@ -56,7 +63,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = save_profile_pic(form.picture.data)
+            picture_file = upload_file_to_s3(form.picture.data, current_app.config["AWS_BUCKET_NAME"])
             current_user.image_file = picture_file.strip()
         current_user.username = form.username.data.strip()
         current_user.fullname = form.fullname.data.strip()
@@ -80,9 +87,7 @@ def account():
         form.job_title.data = current_user.job_title
         form.bio.data = current_user.bio
         form.location.data = current_user.location
-    image_file = url_for(
-        "static", filename="profile-pics/" + current_user.image_file)
-    return render_template("account.html", title="Account", form=form, image_file=image_file)
+    return render_template("account.html", title="Account", form=form, image_file=current_user.image_file)
 
 
 @users.route("/users/<username>")
@@ -100,11 +105,8 @@ def get_user(username):
         return render_template("user.html", title=user.username, user=user, posts=posts,
                                 len=len, next_url=next_url, prev_url=prev_url)
 
-    image_file = url_for(
-        "static", filename="profile-pics/" + current_user.image_file)
-    return render_template("user.html", title=user.username, len=len, image_file=image_file, user=user, posts=posts, prev_url=prev_url, next_url=next_url)
-
-
+    return render_template("user.html", title=user.username, len=len, image_file=current_user.image_file, 
+    user=user, posts=posts, prev_url=prev_url, next_url=next_url)
 
 
 @users.route("/reset-password", methods=["GET", "POST"])

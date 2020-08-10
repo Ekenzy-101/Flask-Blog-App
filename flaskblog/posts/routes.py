@@ -1,8 +1,8 @@
-from flask import Blueprint, redirect, render_template, request, url_for, abort, flash
+from flask import Blueprint, redirect, render_template, request, url_for, abort, flash, current_app
 from flaskblog import db
 from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm, UpdatePostForm 
-from flaskblog.posts.utils import save_post_pic
+from flaskblog.users.utils import upload_file_to_s3
 from flask_login import current_user, login_required
 
 posts = Blueprint("posts", __name__)
@@ -13,7 +13,7 @@ posts = Blueprint("posts", __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        pic_file = save_post_pic(form.image_file.data).strip()
+        pic_file = upload_file_to_s3(form.image_file.data, current_app.config["AWS_BUCKET_NAME"], prefix="post-pics/")
         value = dict(form.category.choices).get(form.category.data)
         post = Post(title=form.title.data.strip(), content=form.content.data.strip(),
                     category=value, author=current_user, image_file=pic_file)
@@ -22,9 +22,9 @@ def new_post():
         flash("Your post has been created successfully!", category="success")
         return redirect(url_for("main.home"))
     
-    image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
+
     return render_template("create-post.html", title="New Post",
-                        form=form, image_file=image_file, legend="New Post")
+                            form=form, image_file=current_user.image_file, legend="New Post")
 
 
 @posts.route("/posts/<id>")
@@ -33,8 +33,7 @@ def get_post(id):
     if getattr(current_user, "image_file", "") == "":
         return render_template("post.html", title=post.title, post=post)
 
-    image_file = url_for("static", filename="profile-pics/" + current_user.image_file)
-    return render_template("post.html", title=post.title, post=post, image_file=image_file)
+    return render_template("post.html", title=post.title, post=post, image_file=current_user.image_file)
 
 
 @posts.route("/posts/<id>/update", methods=["GET", "POST"])
@@ -48,7 +47,7 @@ def update_post(id):
         post.title = form.title.data.strip()
         post.content = form.content.data.strip()
         post.category = dict(form.category.choices).get(form.category.data)
-        post.image_file = save_post_pic(form.image_file.data)
+        post.image_file = upload_file_to_s3(form.image_file.data, current_app.config["AWS_BUCKET_NAME"], prefix="post-pics/")
         db.session.commit()
         flash("Your post has been updated successfully!", category="success")
         return redirect(url_for("posts.get_post", id=post.id))
@@ -57,10 +56,9 @@ def update_post(id):
         form.content.data = post.content
         form.category.data = post.category
         form.image_file.data = post.image_file
-    image_file = url_for(
-        "static", filename="profile-pics/" + current_user.image_file)
+
     return render_template("create-post.html", title="Update Post",
-                            form=form, legend="Update Post", image_file=image_file)
+                            form=form, legend="Update Post", image_file=current_user.image_file)
 
 
 @posts.route("/posts/<id>/delete", methods=["POST"])
