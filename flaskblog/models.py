@@ -14,7 +14,7 @@ def generate_uuid():
     return str(uuid.uuid4())
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.String(50), primary_key=True, default=generate_uuid)
+    id = db.Column(db.String, primary_key=True, default=generate_uuid)
     username = db.Column(db.String(20), unique=True, nullable=False)
     fullname = db.Column(db.String(40), default="Unknown Member", nullable=False)
     job_title = db.Column(db.String(200), default="", nullable=False)
@@ -60,7 +60,7 @@ class Post(db.Model):
     image_file = db.Column(
         db.String(250), nullable=False, default="default-post.jpg")
     category = db.Column(db.String(40), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    user_id = db.Column(db.String, db.ForeignKey("user.id"), nullable=False)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.created_at}', '{self.category}')"
