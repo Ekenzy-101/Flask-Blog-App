@@ -106,7 +106,7 @@
                     <img src="{{ post.author.image_file }}" alt="avatar"
                         class="user-img">
                     <p class="card-text text-muted"><a href="#" class="user-link">{{post.author.username}}</a> | |
-                        {{post.created_at.strftime("%d %B, %Y") }}</p>
+                        {{post.updated_at.strftime("%d %B, %Y") }}</p>
                 </div>
                 <a class="btn read-more" href="{{ url_for('posts.get_post', id=post.id) }}">READ MORE</a>
             </div>

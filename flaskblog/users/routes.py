@@ -4,14 +4,9 @@ from flaskblog.models import User, Post
 from flaskblog.users.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateAccountForm
 from flaskblog.users.utils import upload_file_to_s3, send_reset_email
 from flask_login import current_user, login_user, logout_user, login_required
-import boto3
 
-s3_resource = boto3.resource(
-    "s3",
-    aws_access_key_id=current_app.config["AWS_ACCESS_KEY_ID"],
-    aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"]
-)
 
+# Blueprint Configuration
 users = Blueprint("users", __name__)
 
 
@@ -63,8 +58,9 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            picture_file = upload_file_to_s3(form.picture.data, current_app.config["AWS_BUCKET_NAME"])
-            current_user.image_file = picture_file.strip()
+            # Upload the file to S3 and return the image url
+            picture_url = upload_file_to_s3(form.picture.data, current_app.config["AWS_BUCKET_NAME"])
+            current_user.image_file = picture_url.strip()
         current_user.username = form.username.data.strip()
         current_user.fullname = form.fullname.data.strip()
         current_user.facebook_link = form.facebook_link.data.strip()
@@ -94,6 +90,7 @@ def account():
 def get_user(username):
     page = request.args.get("page", 1, type=int)
     user = User.query.filter_by(username=username).first_or_404()
+    # Get a certain no of posts for a page 
     posts = Post.query.filter_by(author=user)\
         .order_by(Post.updated_at.desc())\
         .paginate(page, 4, False)
