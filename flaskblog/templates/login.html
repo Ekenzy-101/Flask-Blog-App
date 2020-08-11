@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block header%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login.scss.css') }}" />
+<link rel="stylesheet" href="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/css/login.scss.css" />
 {% endblock header %}
 {% block content %}
 <div class="register-section">
@@ -35,11 +35,11 @@
             <div class="valid-feedback">Looks good</div>
             {% endif %}
         </div>
-        <div class="form-group pl-3">
+        <div class="form-group pl-4">
             {{ form.remember(class="form-check-input") }}
             {{ form.remember.label(class="form-check-label") }}
         </div>
-        <div class="form-group mt-4">
+        <div class="form-group mt-5">
             {{ form.submit(class="btn register-btn")}}
         </div>
         <div class="form-group">

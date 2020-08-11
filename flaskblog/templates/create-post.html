@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block header%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/account.scss.css') }}" />
+<link rel="stylesheet" href="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/css/account.scss.css" />
 {% endblock header %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ url_for('main.about') }}">ABOUT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT</a>
+                <a class="nav-link" href="#">SUBSCRIBE</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"

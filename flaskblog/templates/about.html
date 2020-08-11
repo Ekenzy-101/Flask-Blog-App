@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block header%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/about.scss.css') }}" />
+<link rel="stylesheet" href="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/css/about.scss.css" />
 {% endblock header %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ url_for('main.about') }}">ABOUT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT</a>
+                <a class="nav-link" href="#">SUBSCRIBE</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
@@ -53,7 +53,7 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-            <img src="{{ url_for('static', filename='power-station.jpg')}}" alt="First slide" class="d-block w-100" />
+            <img src="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/power-station.jpg" alt="First slide" class="d-block w-100" />
             <div class="carousel-caption d-md-block">
                 <h3>Trending and Popular</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam quis modi eveniet facilis, quae
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{{ url_for('static', filename='background.jpg')}}" alt="Second slide" class="d-block w-100" />
+            <img src="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/background.jpg" alt="Second slide" class="d-block w-100" />
             <div class="carousel-caption d-md-block">
                 <h3> Lastest Blog</h3>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Vero aut voluptatum eligendi, debitis,
@@ -71,7 +71,7 @@
             </div>
         </div>
         <div class="carousel-item">
-            <img src="{{ url_for('static', filename='new-york.jpg')}}" alt="Third slide" class="d-block w-100" />
+            <img src="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/new-york.jpg" alt="Third slide" class="d-block w-100" />
             <div class="carousel-caption d-md-block">
                 <h3>Informative</h3>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsam delectus ab quisquam culpa.
@@ -91,26 +91,29 @@
 </div>
 
 <section class="about-us w-75 mx-auto">
-    <h3 class="text-center ">About Us</h3>
-    <p class="text-center text-muted mb-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In, exercitationem.
-        Sunt deleniti obcaecati, ducimus temporibus saepe iste assumenda eius molestiae, est perferendis possimus
-        tenetur quibusdam, corporis nesciunt ea! Id, atque!
+    <h3 class="text-center ">About Kenzy</h3>
+    <p class="mb-4">
+        Hi, my name is Onyekaba Ekenedilichukwu Emmanuel. I am a fullstack developer skilled in using React, Flask, NodeJS,
+        MongoDB, SQL, SASS, Bootstrap to design functional websites, web and mobile applications. I am passionate to 
+        help build the next generation of applications that provides a good user experience with efficient data
+        transfer between frontend, backend, and databases, to develop cross-browser and cross-platform compatible solutions.
     </p>
-    <p class="text-center text-muted mb-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In, exercitationem.
-        Sunt deleniti obcaecati, ducimus temporibus saepe iste assumenda eius molestiae, est perferendis possimus
-        tenetur quibusdam, corporis nesciunt ea! Id, atque!
+    <p class="mb-4">
+        I started my programming journey a year ago when I was discussing with my friend. I first started with 
+        the mindset of making money from it by learning Data Science.
+        Later I realized that, I really didn't like what I was learning due to the money mindset. When I realized what I
+        really liked was web and software development, I couldn't get enough. I watched youtube videos, read documentations,
+        praticed regularly and built small projects to perfect my skills. I also took online courses on Udacity and Coursera 
+        to become a certified Fullstack Developer. I am looking forward to bringing that passion to hire myself out as a freelancer.
     </p>
-    <p class="text-center text-muted mb-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In, exercitationem.
-        Sunt deleniti obcaecati, ducimus temporibus saepe iste assumenda eius molestiae, est perferendis possimus
-        tenetur quibusdam, corporis nesciunt ea! Id, atque!
+    <p class="mb-4">
+        If you like this project and you are a programmer, you can star this project at
+        <a href="https://github.com/Ekenzy-101/Flask-Blog-App" target="_blank">here</a>. Also if you will
+        like to see more updates from me, you can follow me <a href="https://github.com/Ekenzy-101" target="_blank">here</a>
     </p>
-    <p class="text-center text-muted mb-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. In, exercitationem.
-        Sunt deleniti obcaecati, ducimus temporibus saepe iste assumenda eius molestiae, est perferendis possimus
-        tenetur quibusdam, corporis nesciunt ea! Id, atque!
+    <p class="mb-4">
+        If you are not a programmer, I have an advice for you - learn programming because learning it sharpens your
+        reasoning skills. It doesn't matter who you are and what you do, you can learn it as an hobby
     </p>
 </section>
 {% endblock content %}

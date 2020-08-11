@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block header%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/user.scss.css') }}" />
+<link rel="stylesheet" href="https://kenzy-blog-files.s3.af-south-1.amazonaws.com/css/user.scss.css" />
 {% endblock header %}
 {% block content %}
 <nav class="navbar navbar-expand-md navbar-light bg-light d-flex justify-content-around fixed-top">
@@ -18,7 +18,7 @@
                 <a class="nav-link" href="{{ url_for('main.about') }}">ABOUT</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">CONTACT</a>
+                <a class="nav-link" href="#">SUBSCRIBE</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true"
@@ -60,24 +60,24 @@
         </p>
         <div class="media-links">
             {% if len(user.facebook_link) > 0 %}
-            <a href="{{ user.facebook_link }}" class="link text-muted">
+            <a href="{{ user.facebook_link }}" target="_blank">
                 <i class="fab fa-facebook-square"></i>
             </a>
             {% endif %}
             {% if len(user.instagram_link) > 0 %}
-            <a href="{{ user.instagram_link }}">
+            <a href="{{ user.instagram_link }}" target="_blank">
                 <span class="instagram">
                     <span class="fab fa-instagram"></span>
                 </span>
             </a>
             {% endif %}
             {% if len(user.twitter_link) > 0 %}
-            <a href="{{ user.twitter_link }}">
+            <a href="{{ user.twitter_link }}" target="_blank">
                 <i class="fab fa-twitter-square"></i>
             </a>
             {% endif %}
             {% if len(user.linkedin_link) > 0 %}
-            <a href="{{ user.linkedin_link }}">
+            <a href="{{ user.linkedin_link }}" target="_blank">
                 <i class="fab fa-linkedin"></i>
             </a>
             {% endif %}
