@@ -28,7 +28,7 @@ def upload_file_to_s3(form_picture, bucket_name, acl="public-read", prefix="prof
     try:
         file_name = get_filename(form_picture)
         prefixed_filename = prefix + file_name
-        s3_client.upload_fileobj(
+        s3_client.upload_file(
             form_picture,
             bucket_name,
             prefixed_filename,
