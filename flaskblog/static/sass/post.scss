@@ -25,10 +25,10 @@
         font-size: 2rem;
         text-align: center;
         text-transform: uppercase;
-        font-weight: bold;
+        font-weight: 500;
         }
     .post-img {
-            width: 90%;
+            width: 85%;
             height: 30rem;
             display: block;
             text-align: center;
@@ -38,7 +38,7 @@
     }
     .post-info {
         display: flex;
-        width: 90%;
+        width: 85%;
         justify-content: space-between;
         align-items: center;
         margin: 2rem auto;
@@ -70,9 +70,12 @@
     }
 
     .post-body {
-        width: 90%;
+        width: 85%;
         margin: auto;
         font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: #000;
     }
 
     .form-group {
@@ -83,7 +86,6 @@
         .btn {
             width: 60%;
             margin: 2rem ;
-            // display: block;
         }
         .btn-primary {
             background: $dark-blue;
@@ -108,12 +110,37 @@
     box-shadow: 0px 3px 10px rgba(0, 0, 0, .25);
 }
 
+.modal {
+    .modal-header {
+        border: none;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        padding-bottom: 0;
+    }
+    .modal-footer {
+        padding: 1rem !important;
+        border: none !important;
+        form {
+            .btn {
+                margin: 1rem 0;
+                border-radius: 0.2rem;
+            }
+        }
+    }
+    .modal-body {
+        color: $grey;
+        font-weight: 600;
+    }
+}
+
+
 @media (max-width: 800px) {
     .post-section {
         width: 95%;
         .post-img {
             height: 20rem;
-            width: 100% !important;
+            width: 90% !important;
         } 
         .post-category {
             font-size: 1rem;
@@ -122,11 +149,11 @@
             font-size: 1.3rem;
         }
         .post-body {
-            width: 100% !important;
+            width: 90% !important;
             font-size: 1rem;
         }
         .post-info {
-            width: 100% !important;
+            width: 90% !important;
             flex-direction: column !important;
             div {
                 flex: 1 !important;
@@ -161,6 +188,6 @@
         font-size: 0.7rem;
     }
     .post-body {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }

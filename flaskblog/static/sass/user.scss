@@ -14,12 +14,11 @@
     }
     .media-body {
         padding-left: 3rem;
-        letter-spacing: 2px;
+        letter-spacing: 0.5px;
         .about {
             color: $darken-blue;
             font-size: 1.1rem;
             text-align: center;
-            font-weight: bold;
         }
         .fullname {
             font-weight: bold;
@@ -37,6 +36,7 @@
         }
         p {
             margin-bottom: 0;
+            // font-weight: 600;
             .fas {
                 color: $darken-blue;
                 width: 16px;
@@ -126,7 +126,6 @@
             margin: 0 auto 1rem auto;
         }
         .media-body {
-            letter-spacing: 0.5px;
             margin-bottom: 1rem ;
             margin-left: auto;
             margin-right: auto;
@@ -188,7 +187,6 @@
     text-align: center;
     text-transform: uppercase;
     color: $darken-blue;
-    font-weight: bold;
     margin-bottom: 4rem;
 }
 
@@ -196,6 +194,5 @@
     .media-links {
             width: 90% !important;
             justify-content: space-between !important;
-        }
-
+    }
 }

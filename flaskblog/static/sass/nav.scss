@@ -8,9 +8,21 @@
     }
 }
 
+.nav-item {
+    height: 3rem;
+}
+
+.navbar {
+    padding: 0 1rem;
+}
+
 .active > .nav-link {
     font-weight: bold;
     color: $dark-blue !important;
+}
+
+.nav-item.active {
+    border-bottom: 3px solid $dark-blue;
 }
 
 .dropdown-menu {
@@ -28,6 +40,7 @@
 
 .dropdown-item {
     color: $grey !important;
+    font-weight: 600;
     background: #fff !important;
     &:hover {
         color: $dark-blue !important;
@@ -49,5 +62,8 @@
 @media (max-width: 768px) {
     .alert {
         width: 100%;
+    }
+    .nav-item.active {
+        border: none;
     }
 }

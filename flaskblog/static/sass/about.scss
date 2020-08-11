@@ -1,6 +1,7 @@
 @import "./nav.scss";
 @import "./variable.scss";
 
+
 .carousel-item {
     img {
         height: 35rem;
@@ -9,6 +10,10 @@
         h3 {
             color: $darken-blue;
             text-transform: uppercase;
+            font-weight: 500;
+        }
+        p {
+            letter-spacing: 0.5px;
         }
     }
 }
@@ -17,6 +22,11 @@
     h3 {
         color: $darken-blue;
         text-transform: uppercase;
+        letter-spacing: 0.2px;
+    }
+    p {
+        color: #000;
+        letter-spacing: 0.5px;
     }
 }
 
