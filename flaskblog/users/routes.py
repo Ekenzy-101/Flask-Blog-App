@@ -4,7 +4,7 @@ from flaskblog.models import User, Post
 from flaskblog.users.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm, UpdateAccountForm
 from flaskblog.users.utils import upload_file_to_s3, send_reset_email
 from flask_login import current_user, login_user, logout_user, login_required
-
+from os import environ
 
 # Blueprint Configuration
 users = Blueprint("users", __name__)
@@ -59,7 +59,7 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             # Upload the file to S3 and return the image url
-            picture_url = upload_file_to_s3(form.picture.data, current_app.config["AWS_BUCKET_NAME"])
+            picture_url = upload_file_to_s3(form.picture.data, environ.get("AWS_BUCKET_NAME"))
             current_user.image_file = picture_url.strip()
         current_user.username = form.username.data.strip()
         current_user.fullname = form.fullname.data.strip()

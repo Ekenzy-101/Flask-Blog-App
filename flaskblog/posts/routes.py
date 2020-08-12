@@ -4,6 +4,7 @@ from flaskblog.models import Post
 from flaskblog.posts.forms import PostForm, UpdatePostForm 
 from flaskblog.users.utils import upload_file_to_s3
 from flask_login import current_user, login_required
+from os import environ
 
 posts = Blueprint("posts", __name__)
 
@@ -13,7 +14,7 @@ posts = Blueprint("posts", __name__)
 def new_post():
     form = PostForm()
     if form.validate_on_submit():
-        pic_file = upload_file_to_s3(form.image_file.data, current_app.config["AWS_BUCKET_NAME"], prefix="post-pics/")
+        pic_file = upload_file_to_s3(form.image_file.data, environ.get("AWS_BUCKET_NAME"), prefix="post-pics/")
         value = dict(form.category.choices).get(form.category.data)
         post = Post(title=form.title.data.strip(), content=form.content.data.strip(),
                     category=value, author=current_user, image_file=pic_file)
@@ -47,7 +48,7 @@ def update_post(id):
         post.title = form.title.data.strip()
         post.content = form.content.data.strip()
         post.category = dict(form.category.choices).get(form.category.data)
-        post.image_file = upload_file_to_s3(form.image_file.data, current_app.config["AWS_BUCKET_NAME"], prefix="post-pics/")
+        post.image_file = upload_file_to_s3(form.image_file.data, environ.get("AWS_BUCKET_NAME"), prefix="post-pics/")
         db.session.commit()
         flash("Your post has been updated successfully!", category="success")
         return redirect(url_for("posts.get_post", id=post.id))

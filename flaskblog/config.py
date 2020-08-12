@@ -15,7 +15,7 @@ class Config:
     MAIL_USERNAME = environ.get("EMAIL_USER") 
     MAIL_PASSWORD = environ.get("EMAIL_PASS")
     SECRET_KEY = environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = environ.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
     AWS_ACCESS_KEY_ID = environ.get("AWS_ACCESS_KEY_ID")

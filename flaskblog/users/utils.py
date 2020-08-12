@@ -7,12 +7,13 @@ from flask import url_for
 from flask_mail import Message
 from flaskblog import mail
 from flask import Flask, current_app
+from os import environ
 
 s3_client = boto3.client(
     "s3",
-    region_name=current_app.config["AWS_REGION"],
-    aws_access_key_id=current_app.config["AWS_ACCESS_KEY_ID"],
-    aws_secret_access_key=current_app.config["AWS_SECRET_ACCESS_KEY"]
+    region_name=environ.get("AWS_REGION"),
+    aws_access_key_id=environ.get("AWS_ACCESS_KEY_ID"),
+    aws_secret_access_key=environ.get("AWS_SECRET_ACCESS_KEY")
 )    
 
 def get_filename(form_picture):
@@ -28,7 +29,7 @@ def upload_file_to_s3(form_picture, bucket_name, acl="public-read", prefix="prof
     try:
         file_name = get_filename(form_picture)
         prefixed_filename = prefix + file_name
-        s3_client.upload_file(
+        s3_client.upload_fileobj(
             form_picture,
             bucket_name,
             prefixed_filename,
