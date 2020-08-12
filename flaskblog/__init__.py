@@ -14,6 +14,7 @@ login_manager.login_view = "users.login"
 login_manager.login_message_category = "info" 
 mail = Mail()
 
+from flaskblog import commands
 
 def create_app(config_class=Config):
     """Initialize the core application"""
@@ -28,6 +29,7 @@ def create_app(config_class=Config):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
+    commands.init_app(app)
     
     with app.app_context():
         # Include our routes
