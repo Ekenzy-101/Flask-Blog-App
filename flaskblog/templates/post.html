@@ -84,9 +84,11 @@
             </span>
         </div>
     </div>
-    <p class="post-body">
-        {{ post.content }}
+    {% for content in contents %}
+    <p class="post-body mb-3">
+        {{ content }}
     </p>
+    {% endfor %}
     {% if post.author == current_user %}
     <div class="form-group mt-3">
         <a href="{{ url_for('posts.update_post', id=post.id) }}" class="btn btn-primary">UPDATE</a>
