@@ -50,20 +50,28 @@
     <img src="{{ post.image_file }}" alt="post-img" class="post-img" />
     <div class="post-info">
         <div class="d-flex justify-content-around align-items-center">
+            {% if post.author.facebook_link %}
             <a href="{{ post.author.facebook_link }}" target="_blank">
                 <i class="fab fa-facebook-square"></i>
             </a>
+            {% endif %}
+            {% if post.author.instagram_link %}
             <a href="{{ post.author.instagram_link }}" target="_blank">
                 <span class="instagram">
                     <span class="fab fa-instagram"></span>
                 </span>
             </a>
+            {% endif %}
+            {% if post.author.twitter_link %}
             <a href="{{ post.author.twitter_link }}" target="_blank">
                 <i class="fab fa-twitter-square"></i>
             </a>
+            {% endif %}
+            {% if post.author.linkedin_link %}
             <a href="{{ post.author.linkedin_link}}" target="_blank">
                 <i class="fab fa-linkedin"></i>
             </a>
+            {% endif %}
         </div>
         <div class="d-flex justify-content-around text-muted">
             <span>Posted On {{post.updated_at.strftime("%d %b, %Y, %I:%M %p")}}</span>

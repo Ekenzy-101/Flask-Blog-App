@@ -1,0 +1,17 @@
+@import "variable.scss";
+
+.paginate {
+    margin-top: 1rem;
+    .btn {
+        background: $dark-blue;
+        color: #ffffff;
+        border-radius: 1.3rem;
+        border-color: $dark-blue;
+    }
+    .next {
+        float: right;
+    }
+    .prev {
+        float: left;
+    }
+}

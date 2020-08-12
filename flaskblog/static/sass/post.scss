@@ -1,0 +1,193 @@
+@import "./nav.scss";
+@import "variable.scss";
+
+.img-author {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+
+.post-section {
+    border-radius: 0.5rem;
+    width: 90%;
+    background: white;
+    padding: 1rem;
+    margin: 4rem auto;
+    .post-category {
+        width: 90%;
+        font-size: 1.5rem;
+        margin: 0 auto;
+        text-transform: uppercase;
+    }
+    .post-title {
+        color: $darken-blue;
+        font-size: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+        font-weight: 500;
+        }
+    .post-img {
+            width: 85%;
+            height: 30rem;
+            display: block;
+            text-align: center;
+            margin: 2rem auto;
+            border-radius: 0.3rem;
+            border: 1px solid $darken-blue;
+    }
+    .post-info {
+        display: flex;
+        width: 85%;
+        justify-content: space-between;
+        align-items: center;
+        margin: 2rem auto;
+        border-radius: 0.5rem;
+        text-align: center;
+        .text-muted {
+            font-weight: bold;
+            flex: 2;
+            align-items: center;
+        }
+        div {
+            flex: 1;
+        }
+        a {
+            text-decoration: none;
+        }
+        .fab {
+            font-size: 3rem;
+        }
+        .fa-facebook-square {
+            color: #3b5998;
+        }
+        .fa-twitter-square {
+            color: #00acee;
+        }   
+        .fa-linkedin {
+            color: #0e76a8;
+        }
+    }
+
+    .post-body {
+        width: 85%;
+        margin: auto;
+        font-size: 1.2rem;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        color: #000;
+    }
+
+    .form-group {
+        width: 80%;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        .btn {
+            width: 60%;
+            margin: 2rem ;
+        }
+        .btn-primary {
+            background: $dark-blue;
+        }
+    }
+}
+
+.instagram {
+    display: inline-block;
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    border-radius: 0.8rem;
+    font-size: 2rem !important;
+    color: #fff;
+    line-height: 2rem;
+    vertical-align: middle;
+    background: #d6249f;
+    background: radial-gradient(circle at 30% 107%,
+    #fdf497 0%, #fdf497 5%, 
+    #fd5949 45%, #d6249f 60%, #285AEB 90% );
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, .25);
+}
+
+.modal {
+    .modal-header {
+        border: none;
+        background: #fff;
+        color: #000;
+        font-weight: bold;
+        padding-bottom: 0;
+    }
+    .modal-footer {
+        padding: 1rem !important;
+        border: none !important;
+        form {
+            .btn {
+                margin: 1rem 0;
+                border-radius: 0.2rem;
+            }
+        }
+    }
+    .modal-body {
+        color: $grey;
+        font-weight: 600;
+    }
+}
+
+
+@media (max-width: 800px) {
+    .post-section {
+        width: 95%;
+        .post-img {
+            height: 20rem;
+            width: 90% !important;
+        } 
+        .post-category {
+            font-size: 1rem;
+        }
+        .post-title {
+            font-size: 1.3rem;
+        }
+        .post-body {
+            width: 90% !important;
+            font-size: 1rem;
+        }
+        .post-info {
+            width: 90% !important;
+            flex-direction: column !important;
+            div {
+                flex: 1 !important;
+                width: 100%;
+            }
+            .text-muted {
+                flex-direction: column !important;
+            }
+            .fa-facebook-square, .fa-twitter-square, .fa-linkedin-square, .instagram {
+                margin: 1rem 0.3rem !important;
+            }
+        }
+        .form-group {
+            width: 100%;
+        }
+        .img-author {
+            width: 2rem ;
+            height: 2rem ;
+        }
+    }
+}
+
+
+@media (max-width: 650px) {
+    .post-img {
+        height: 13rem !important;
+    }
+    .post-title {
+        font-size: 1rem;
+    }
+    .post-category {
+        font-size: 0.7rem;
+    }
+    .post-body {
+        font-size: 0.7rem;
+    }
+}

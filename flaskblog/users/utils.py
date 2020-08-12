@@ -9,6 +9,7 @@ from flaskblog import mail
 from flask import Flask, current_app
 from os import environ
 
+# Creating a low level client with s3
 s3_client = boto3.client(
     "s3",
     region_name=environ.get("AWS_REGION"),
@@ -27,12 +28,15 @@ def get_filename(form_picture):
 def upload_file_to_s3(form_picture, bucket_name, acl="public-read", prefix="profile-pics/"):
 
     try:
+        # Get the generated filename
         file_name = get_filename(form_picture)
-        prefixed_filename = prefix + file_name
+        # Get the object_name where s3 will store the object
+        object_name = prefix + file_name
+        # Upload object to the my s3 bucket
         s3_client.upload_fileobj(
             form_picture,
             bucket_name,
-            prefixed_filename,
+            object_name,
             ExtraArgs={
                 "ACL": acl,
                 "ContentType": form_picture.content_type
@@ -40,7 +44,8 @@ def upload_file_to_s3(form_picture, bucket_name, acl="public-read", prefix="prof
     except ClientError as e:
         logging.error(e)
         return False
-    return "{}{}".format(current_app.config["AWS_LOCATION"], prefixed_filename)
+    # Returns the Object URL of the file
+    return "{}{}".format(current_app.config["AWS_LOCATION"], object_name)
 
 def send_reset_email(user):
     token = user.get_reset_token()

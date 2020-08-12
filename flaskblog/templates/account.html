@@ -83,6 +83,10 @@
             {% endif %}
         </div>
         <div class="form-group">
+            <label for="email">Email Address</label>
+            <input class="form-control" name="email" placeholder="{{ email }}" readonly>
+        </div>
+        <div class="form-group">
             {{ form.job_title.label(class="form-control-label") }}
             {% if form.job_title.errors %}
             {{ form.job_title(class="form-control is-invalid")}}
@@ -113,7 +117,7 @@
         <div class="form-group">
             {{ form.bio.label(class="form-control-label") }}
             {% if form.bio.errors %}
-            {{ form.bio(class="form-control is-invalid", rows="20")}}
+            {{ form.bio(class="form-control is-invalid")}}
             <div class="invalid-feedback">
                 {% for error in form.bio.errors %}
                 <span>{{ error }}</span>
@@ -188,10 +192,6 @@
             <span class="text-danger">{{ error }}</span><br>
             {% endfor %}
             {% endif %}
-        </div>
-        <div class="form-group">
-            <label for="email">Email Address</label>
-            <input class="form-control" name="email" placeholder="ekeneonyekaba@gmail.com" readonly>
         </div>
         <div class="form-group mt-4">
             {{ form.submit(class="btn update-btn")}}

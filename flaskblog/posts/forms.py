@@ -21,5 +21,5 @@ class UpdatePostForm(FlaskForm):
                            choices=[("Politics", "Politics"), ("Science", "Science"), ("Sport", "Sport"), ("Technology", "Technology"),
                                     ("Entertainment", "Entertainment")])
     image_file = FileField("Upload Post Picture",
-                           validators=[FileAllowed(["jpg", "jpeg", "jfif", "png"]), FileRequired()])
+                           validators=[FileAllowed(["jpg", "jpeg", "jfif", "png"]),])
     submit = SubmitField("UPDATE POST")

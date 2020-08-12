@@ -1,0 +1,61 @@
+@import "variable.scss";
+
+body {
+    width: 100vw;
+    height: 100%;
+    background: #f1f1f1;
+}
+
+.register-section {
+    width: 50%;
+    margin: auto;
+    margin-top: 20vh;
+    padding: 2rem;
+    border: 2px solid $darken-blue;
+    border-radius: 0.6rem;
+    legend {
+        font-weight: bold;
+        color: $darken-blue;
+        text-align: center;
+    }
+    .form-group {
+        width: 85%;
+        margin: 1rem auto;
+        input {
+            &:focus {
+                border: 1px solid $darken-blue; 
+            }
+        }
+        .register-btn {
+            background: $darken-blue;
+            color: white;
+            border-radius: 0.3rem;
+            display: block;
+            width: 100%;
+        }
+        p {
+            a {
+                color: $darken-blue;
+                &:hover {
+                    color: $darken-blue;
+                }
+            }
+        }
+
+    }
+}
+.alert {
+    margin-top: 6rem !important;
+    z-index: 3;
+}
+
+@media (max-width: 800px) {
+    .alert {
+        width: 100%;
+    }
+    
+    .register-section {
+        width: 100%;
+        border: none; 
+    }
+} 

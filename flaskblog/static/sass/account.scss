@@ -1,0 +1,130 @@
+@import "./nav.scss";
+@import "./variable.scss";
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.account-content, .create-post-content {
+    width: 70%;
+    margin:  6rem auto 2rem auto;
+    .media {
+        width: 80%;
+        margin: auto;
+        margin-bottom: 1rem;
+        .avatar {
+            border-radius: 50% !important;
+            margin-right: 2rem;
+            outline: none;
+            width: 8rem;
+            height: 8rem;
+        }
+        .media-body {
+            .fullname {
+                color: $darken-blue;
+                font-weight: bold;
+                text-transform: uppercase;
+                font-size: 2rem;
+                margin-bottom: 0.2rem;
+                box-sizing: border-box;
+    
+            }
+            .username {
+                font-size: 1rem;
+            }
+            .job-title {
+                font-size: 1.5rem;
+            }
+        }
+    }
+    form {
+        width: 80%;
+        margin: auto;
+        legend {
+                text-align: center;
+                color: $darken-blue;
+                text-transform: uppercase;
+                font-weight: 500;
+        }
+        .form-group {
+            .default {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: $darken-blue;
+                color: #ffffff;
+                font-weight: bold;
+                p {
+                    margin: 0;
+                    font-size: 2.5rem;
+                    text-align: center;
+                }
+            }
+            .form-control {
+                &:focus {
+                    border: 1px solid $darken-blue;
+                }
+            }
+            #bio {
+                height: 10rem;
+            }
+            #content  {
+                height: 25rem;
+            }
+            .update-btn, .create-btn {
+                background: $darken-blue;
+                color: #ffffff;
+                border-color: $darken-blue;
+                width: 100%;
+                text-align: center;
+                padding: 0.6rem 0;
+            }
+        }
+    }
+}
+
+
+
+@media (max-width: 800px) {
+    .account-content, .create-post-content {
+        width: 100%;
+        margin: 6rem auto;
+        .media {
+            width: 90%;
+            .avatar {
+                width: 6rem;
+                height: 6rem;
+                margin-right: 1rem;
+            }
+            .media-body {
+                .fullname {
+                    color: $darken-blue;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    font-size: 1.2rem;
+                    margin-bottom: 0.2rem;
+                    box-sizing: border-box;
+                    word-wrap: break-word;
+    
+                }
+                .username {
+                    font-size: 0.9rem;
+                }
+                .job-title {
+                    font-size: 1rem;
+                }
+            }
+        }
+        form {
+            width: 90%;
+            legend {
+                text-align: center;
+                color: $darken-blue;
+                text-transform: uppercase;
+                font-weight: 500;
+            }
+        }
+    }
+}

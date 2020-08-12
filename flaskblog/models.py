@@ -8,12 +8,14 @@ import uuid
 
 @login_manager.user_loader
 def load_user(user_id):
+    """Loads the user as the current user"""
     return User.query.get(str(user_id))
 
 def generate_uuid():
     return str(uuid.uuid4())
 
 class User(db.Model, UserMixin):
+    """User Table"""
     id = db.Column(db.String, primary_key=True, default=generate_uuid)
     username = db.Column(db.String(20), unique=True, nullable=False)
     fullname = db.Column(db.String(40), default="Unknown Member", nullable=False)
@@ -51,6 +53,7 @@ class User(db.Model, UserMixin):
 
 
 class Post(db.Model):
+    """Post Table"""
     id = db.Column(db.String, primary_key=True, default=generate_uuid)
     title = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=db.func.current_timestamp())

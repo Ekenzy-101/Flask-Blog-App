@@ -35,6 +35,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
+        # If user exists and password matches the hashed password on the database
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get("next")
@@ -58,7 +59,7 @@ def account():
     form = UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
-            # Upload the file to S3 and return the image url
+            # Upload the file to S3 and return the object url
             picture_url = upload_file_to_s3(form.picture.data, environ.get("AWS_BUCKET_NAME"))
             current_user.image_file = picture_url.strip()
         current_user.username = form.username.data.strip()
@@ -83,7 +84,7 @@ def account():
         form.job_title.data = current_user.job_title
         form.bio.data = current_user.bio
         form.location.data = current_user.location
-    return render_template("account.html", title="Account", form=form, image_file=current_user.image_file)
+    return render_template("account.html", title="Account", form=form, image_file=current_user.image_file, email=current_user.email)
 
 
 @users.route("/users/<username>")
@@ -125,6 +126,7 @@ def reset_token(token):
     if current_user.is_authenticated:
         return redirect(url_for("main.home"))
     user = User.verify_reset_token(token)
+    # If token has expired or wrong link
     if user is None:
         flash("It looks like you clicked on an invalid password reset link. Please try again", category="danger")
         return redirect(url_for("users.reset_request"))
