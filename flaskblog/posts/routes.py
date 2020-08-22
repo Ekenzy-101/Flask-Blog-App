@@ -36,7 +36,7 @@ def get_post(id):
     post = Post.query.get_or_404(id)
     contents = post.content.splitlines()
     if getattr(current_user, "image_file", "") == "":
-        return render_template("post.html", title=post.title, post=post)
+        return render_template("post.html", title=post.title, post=post, contents=contents)
 
     return render_template("post.html", title=post.title, post=post, contents=contents, image_file=current_user.image_file)
 
