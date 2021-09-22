@@ -2,9 +2,6 @@
 
 This is a flask blog website where users can create account to create new posts, update and delete posts.
 
-## DEMO
-[Live](https://kenzyflaskblog.herokuapp.com/)
-
 ## FEATURES
 
 - Create your account
